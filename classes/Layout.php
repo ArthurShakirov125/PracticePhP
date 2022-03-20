@@ -39,7 +39,8 @@ class Layout{
         $font_name = str_replace(" ", "+", $font_name);
         $font_link = "<link rel='preconnect' href='https://fonts.googleapis.com'>
         <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
-        <link href='https://fonts.googleapis.com/css2?family={$font_name}:wght@100;300&display=swap' rel='stylesheet'>";
+        <link href='https://fonts.googleapis.com/css2?family={$font_name}:wght@100;300&display=swap' rel='stylesheet'>
+        <style>html{font-family: '{$font_name}', sans-serif;}</style>";
         
         echo $font_link;
 
