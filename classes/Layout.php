@@ -3,8 +3,8 @@ class Layout{
     private static $instances = [];
 
     protected function __construct() 
-    { 
-        $this->setup_font("Montserrat");
+    {
+        $this->setup_font();
         $this->set_static("css/bootstrap.css");
     }
 
@@ -34,8 +34,10 @@ class Layout{
     ];
 
 
-    protected function setup_font($font_name){
-        // добавить возможность добавлять шрифты с пробелом в названии
+    protected function setup_font(){
+        $config = new Config();
+        $font_name = $config->get_config("layout.php", "font");
+
         $font_name = str_replace(" ", "+", $font_name);
         $font_link = "<link rel='preconnect' href='https://fonts.googleapis.com'>
         <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
