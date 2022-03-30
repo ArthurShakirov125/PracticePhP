@@ -49,14 +49,22 @@ class Layout{
     }
 
     public function setup_styles(){
+        $this->static["style"] = array_unique($this->static["style"]);
+
         foreach($this->static["style"] as $style){
-            echo "<link rel='stylesheet' href='static/{$style}'>";
+            if(file_exists($style)){
+                echo "<link rel='stylesheet' href='static/{$style}'>";
+            }
         }
     }
 
     public function setup_scripts(){
+        $this->static["script"] = array_unique($this->static["script"]);
+
         foreach($this->static["script"] as $script){
-            echo "<script src='static/{$script}'></script>";
+            if(file_exists($script)){
+                echo "<script src='static/{$script}'></script>";
+            }
         }
     }
 
