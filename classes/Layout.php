@@ -36,13 +36,14 @@ class Layout{
 
     protected function setup_font(){
         $config = new Config();
-        $font_name = $config->get_config("layout.php", "font");
+        $raw_font_name = $config->get_config("layout.php", "font");
 
-        $font_name = str_replace(" ", "+", $font_name);
+        $font_name = str_replace(" ", "+", $raw_font_name);
+
         $font_link = "<link rel='preconnect' href='https://fonts.googleapis.com'>
         <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
         <link href='https://fonts.googleapis.com/css2?family={$font_name}:wght@100;300&display=swap' rel='stylesheet'>
-        <style>html{font-family: '{$font_name}', sans-serif;}</style>";
+        <style>:root{font-family: '{$raw_font_name}', sans-serif;}</style>";
         
         echo $font_link;
 
@@ -52,7 +53,7 @@ class Layout{
         $this->static["style"] = array_unique($this->static["style"]);
 
         foreach($this->static["style"] as $style){
-            if(file_exists($style)){
+            if(file_exists("static/{$style}")){
                 echo "<link rel='stylesheet' href='static/{$style}'>";
             }
         }
@@ -62,7 +63,7 @@ class Layout{
         $this->static["script"] = array_unique($this->static["script"]);
 
         foreach($this->static["script"] as $script){
-            if(file_exists($script)){
+            if(file_exists("static/{$script}")){
                 echo "<script src='static/{$script}'></script>";
             }
         }
