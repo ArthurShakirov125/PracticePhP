@@ -61,8 +61,8 @@ class Layout{
     }
 
     public function set_static($path){
-        $exten = new SplFileInfo($path);
-        if($exten->getExtension() == "js"){
+        $file_info = new SplFileInfo($path);
+        if($file_info->getExtension() == "js"){
             $this->static["script"][] = $path;
         }
         else{
