@@ -8,8 +8,10 @@
     }
 
     $layout = Layout::getInstance();
-
     $layout->set_static("css/catalog.css");
-
     $layout->setup_styles();
+
+    $db = DB::getInstance();
+
+
 ?>
