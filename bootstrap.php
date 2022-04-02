@@ -13,5 +13,22 @@
 
     $db = DB::getInstance();
 
+    $user_config = [
+        "username" => [
+        "name" => "username",
+        "type" => "varchar",
+        "null" => false,
+        "primary_key" => false
+        ],
+        "user_id" => [
+        "name" => "user_id",
+        "type" => "int",
+        "null" => false,
+        "primary_key" => true
+        ]
+    ];
+
+    $db->create_table("client", $user_config);
+
 
 ?>
