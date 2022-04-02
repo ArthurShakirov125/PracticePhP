@@ -21,17 +21,20 @@
             "brend" => "products brand"
         ],
     ];
-
-
-    echo "
-    <div class='catalog'>";
-    foreach($products as $product){
-        echo "<div class='product'>
-        <h3>{$product['name']}</h3>
-        <p>{$product['price']}</p>
-        <p>{$product['brend']}</p>
-        </div>";
-    }
-    echo "</div>
-    ";
 ?>
+
+<div class="catalog">
+    <?php foreach($products as $product):?>
+        <div class='product'>
+        <h3>
+            <?=$product['name']?>
+        </h3>
+        <p>
+        <?=$product['price']?>
+        </p>
+        <p>
+        <?=$product['brend']?>
+        </p>
+        </div>
+    <?php endforeach;?>
+</div>
