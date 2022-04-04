@@ -51,10 +51,19 @@ class DB{
 
     protected function make_connection_string(Array $bd_config)
     {
-        return "mysql:
-        host={$bd_config['host']};
-        dbname={$bd_config['db']};
-        charset={$bd_config['charset']};"; 
+        if(array_key_exists('host', $bd_config) && 
+        array_key_exists('db', $bd_config) && 
+        array_key_exists('charset', $bd_config))
+        {
+            return "mysql:
+                host={$bd_config['host']};
+                dbname={$bd_config['db']};
+                charset={$bd_config['charset']};";
+        }
+        else{
+            die("Отсутсвует ключ в конфиге для создания DSN");
+        }
+        
     }
 
     /*
@@ -89,8 +98,8 @@ class DB{
 
             if($tuple["type"] == "varchar"){
                 $type = self::TYPE_VARCHAR;
-            }
-            else{
+            } 
+            else{ 
                 $type = $tuple["type"];
             }
 
