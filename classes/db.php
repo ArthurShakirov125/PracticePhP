@@ -14,7 +14,8 @@ class DB{
     protected const TYPE_AUTO_INCREMENT = "AUTO_INCREMENT";
 
 
-    protected function __construct() {
+    protected function __construct() 
+    {
         $this->connect();
     }
 
@@ -89,7 +90,17 @@ class DB{
         
     }
 
-    private function construct_query($table_name, Array $tuples){
+    public function is_table_exists($table_name)
+    {
+        $query = "SHOW tables FROM {$this->db_name} LIKE '{$table_name}'";
+
+        $is_exists = $this->connection->query($query)->rowCount();
+
+        return $is_exists;
+    }
+
+    private function construct_query($table_name, Array $tuples)
+    {
 
         $attributes = [];
 

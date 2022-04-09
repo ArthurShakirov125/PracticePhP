@@ -28,7 +28,5 @@
         ]
     ];
 
-    $db->create_table("client", $user_config);
-
 
 ?>
