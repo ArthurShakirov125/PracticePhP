@@ -124,6 +124,24 @@ class DB{
          
     }
 
+    public function select($table_name, $condition = '', $limit = 20)
+    {
+        if($condition == ''){
+            $query = "SELECT * FROM {$table_name} LIMIT {$limit}";
+        }
+        else{
+            $query = "SELECT * FROM {$table_name} WHERE {$condition} LIMIT {$limit}";
+        }
+
+        try{
+            return $this->connection->query($query);
+          }
+          catch(PDOException $e){
+              echo 'Ошибка выполнения запроса: ' . $e->getMessage();
+          }
+        
+    }
+
     private function construct_query_for_creating_table($table_name, Array $tuples)
     {
 
