@@ -20,13 +20,19 @@
         "null" => false,
         "primary_key" => false
         ],
-        "user_id" => [
-        "name" => "user_id",
+        "id" => [
+        "name" => "id",
         "type" => "int",
         "null" => false,
         "primary_key" => true
         ]
     ];
+
+    $data = [
+        "username" => "'DIma'"
+    ];
+
+    //$db->create_table("client", $user_config);
 
 
 ?>

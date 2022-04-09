@@ -77,7 +77,7 @@ class DB{
      */
     public function create_table($table_name, Array $tuples)
     {
-        $query = $this->construct_query($table_name, $tuples);
+        $query = $this->construct_query_for_creating_table($table_name, $tuples);
 
         $stmt = $this->connection->prepare($query);
 
@@ -99,7 +99,32 @@ class DB{
         return $is_exists;
     }
 
-    private function construct_query($table_name, Array $tuples)
+    public function insert($table_name, Array $data){
+        $raw_query = "INSERT INTO {$table_name}(";
+
+
+        $attributes = implode(", ", array_keys($data));
+        $attributes .= ") values(";
+
+        $values = implode(", ", $data);
+
+        $attributes .= $values.")";
+
+        $query = $raw_query.$attributes;
+
+        try{
+          $this->connection->query($query);
+          $id = $this->connection->lastInsertId();
+        }
+        catch(PDOException $e){
+            echo 'Ошибка выполнения запроса: ' . $e->getMessage();
+        }
+
+        return $id;
+         
+    }
+
+    private function construct_query_for_creating_table($table_name, Array $tuples)
     {
 
         $attributes = [];
