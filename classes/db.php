@@ -94,7 +94,7 @@ class DB{
 
     public function is_table_exists($table_name)
     {
-        if($this->tables_in_bd[$table_name]){
+        if(in_array($table_name, $this->tables_in_bd)){
             return true;
         }
 
@@ -147,7 +147,6 @@ class DB{
           catch(PDOException $e){
               echo 'Ошибка выполнения запроса: ' . $e->getMessage();
           }
-        
     }
 
     private function construct_query_for_creating_table($table_name, Array $tuples)

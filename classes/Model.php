@@ -16,9 +16,9 @@ class Model{
         ]
     ];*/
 
-    protected function __construct()
+    public function __construct()
     {
-        $this->db = new DB();
+        $this->db = DB::getInstance();
         if(!$this->db->is_table_exists($this->table_name)){
             $this->create_table();
         }
@@ -27,11 +27,11 @@ class Model{
     protected function create_table()
     {
         $this->db->create_table($this->table_name, $this->table_columns);
-        $this->find_primary_key();
+        $this->find_primary_key($this->table_columns);
     }
 
-    protected function find_primary_key(){
-        foreach($this->table_columns as $col){
+    protected function find_primary_key($table_columns){
+        foreach($table_columns as $col){
             if($col["primary_key"]){
                 $this->primary_key = $col["name"];
             }
