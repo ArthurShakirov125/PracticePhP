@@ -4,6 +4,7 @@ class DB{
     private static $instances = [];
     protected $connection;
     protected $db_name;
+    protected $tables_in_bd = [];
 
     protected const TYPE_INT = "INT";
     protected const TYPE_VARCHAR = "VARCHAR(255)";
@@ -83,6 +84,7 @@ class DB{
 
         try{
             $stmt->execute();
+            array_unshift($this->tables_in_bd, $table_name);
         }
         catch(PDOException $e){
             echo 'Ошибка выполнения запроса: ' . $e->getMessage();
@@ -92,9 +94,15 @@ class DB{
 
     public function is_table_exists($table_name)
     {
+        if($this->tables_in_bd[$table_name]){
+            return true;
+        }
+
         $query = "SHOW tables FROM {$this->db_name} LIKE '{$table_name}'";
 
         $is_exists = $this->connection->query($query)->rowCount();
+        
+        array_unshift($this->tables_in_bd, $table_name);
 
         return $is_exists;
     }
