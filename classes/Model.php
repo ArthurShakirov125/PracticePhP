@@ -40,10 +40,10 @@ class Model{
 
     public function __get($attribute_name)
     {
-        if(array_key_exists($attribute_name, $this->table_columns)){
-            return $this->properties[$attribute_name];
+        if(empty($this->properties)){
+            $this->properties = $this->db->select($this->table_name);
         }
-        return null;
+        return $this->properties;
     }
 
     public function __set($attribute_name, $value)
@@ -51,4 +51,3 @@ class Model{
         
     }
 }
-?>
