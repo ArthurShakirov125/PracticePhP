@@ -3,6 +3,7 @@ class Model{
     protected $table_name;
     protected $table_columns = [];
     protected $primary_key = "id";
+    protected $id;
     protected $db;
     protected $entry = [];
     protected $loaded = false;
@@ -28,7 +29,9 @@ class Model{
             $this->create_table();
         }
         if($id != ""){
+            $this->id = $id;
             $this->find_by_id($id);
+
         }
         return true;
     }
@@ -55,7 +58,11 @@ class Model{
 
     public function find_by_id($id){
         $stmt = $this->db->select($this->table_name, "{$this->primary_key} = {$id}", 1);
-        $this->entry = $stmt->fetch();
+        $this->entry = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($this->entry = []){
+            $this->loaded = false;
+            $this->entry["id"] = $this->id;
+        }
         $this->loaded = true;
     }
 
@@ -63,7 +70,7 @@ class Model{
         $entries = [];
         $stmt = $this->db->select($this->table_name,'', $lim);
 
-        while($tuple = $stmt->fetch()){
+        while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)){
             $entry = new static();
             $entry->entry = $tuple;
             array_unshift($entries, $entry);
@@ -82,10 +89,11 @@ class Model{
 
 
     public function update(){
-            $this->db->update_entry($this->table_name, $this->primary_key, $this->entry);
+            $this->db->update_entry($this->table_name, $this->id, $this->entry);
+
     }
 
     public function create_entry(){
-        $this->db->insert($this->table_name, $this->entry);
+        $this->id = $this->db->insert($this->table_name, $this->entry);
     }
 }

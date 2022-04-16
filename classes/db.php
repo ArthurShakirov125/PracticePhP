@@ -136,13 +136,13 @@ class DB{
         $raw_values = "";
 
         foreach($attributes as $key => $value){
-            $raw_values.="{$key} = {$value},";
+            $raw_values.="{$key} = '{$value}',";
         }
         $values = substr($raw_values, 0 , -1);
 
         $query = "update {$table_name} set {$values} where id = {$id};";
 
-        echo $query;
+        $this->connection->query($query);
     }
 
     public function select($table_name, $condition = '', $limit = 20)
