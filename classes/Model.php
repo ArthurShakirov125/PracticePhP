@@ -54,8 +54,22 @@ class Model{
     }
 
     public function find_by_id($id){
-        $this->entry = $this->db->select($this->table_name, "{$this->primary_key} = {$id}", 1);
+        $stmt = $this->db->select($this->table_name, "{$this->primary_key} = {$id}", 1);
+        $this->entry = $stmt->fetch();
         $this->loaded = true;
+    }
+
+    public function find_all($lim = 1){
+        $entries = [];
+        $stmt = $this->db->select($this->table_name,'', $lim);
+
+        while($tuple = $stmt->fetch()){
+            $entry = new static();
+            $entry->entry = $tuple;
+            array_unshift($entries, $entry);
+        }
+
+        return $entries;
     }
 
     public function set($array){

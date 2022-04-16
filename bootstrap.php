@@ -28,7 +28,9 @@
         ]
     ];
 
-    $product = new Product();
+    $product = new Product(4);
+
+    echo $product->price;
 
     //$db->create_table("client", $user_config);
     //echo $db->insert("client", $data);
