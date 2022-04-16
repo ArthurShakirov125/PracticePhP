@@ -119,7 +119,7 @@ class DB{
         $attributes .= $values.")";
 
         $query = $raw_query.$attributes;
-
+        echo $query;
         try{
           $this->connection->query($query);
           $id = $this->connection->lastInsertId();
@@ -132,6 +132,19 @@ class DB{
          
     }
 
+    public function update_entry($table_name, $id, $attributes){
+        $raw_values = "";
+
+        foreach($attributes as $key => $value){
+            $raw_values.="{$key} = {$value},";
+        }
+        $values = substr($raw_values, 0 , -1);
+
+        $query = "update {$table_name} set {$values} where id = {$id};";
+
+        echo $query;
+    }
+
     public function select($table_name, $condition = '', $limit = 20)
     {
         if($condition == ''){
@@ -140,7 +153,6 @@ class DB{
         else{
             $query = "SELECT * FROM {$table_name} WHERE {$condition} LIMIT {$limit}";
         }
-
         try{
             return $this->connection->query($query);
           }

@@ -29,13 +29,6 @@
     ];
 
     $product = new Product();
-    $products = $product->price;
-
-    echo "<pre>";
-    foreach($products as $product){
-        print_r($product);
-    }
-    echo "</pre>";
 
     //$db->create_table("client", $user_config);
     //echo $db->insert("client", $data);
