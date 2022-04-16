@@ -74,24 +74,24 @@ class Model{
     public function find($condition =''){
         $stmt = $this->db->select($this->table_name, "{$condition}", 1);
         
-        $entry = new static();
+        $entity = new static();
         if($tuple = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $entry->entry = $tuple;
+            $entity->entry = $tuple;
         }
-        return $entry;
+        return $entity;
     }
 
     public function find_all($condition ='', $lim = 1){
-        $entries = [];
+        $entities = [];
         $stmt = $this->db->select($this->table_name, $condition, $lim);
 
         while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $entry = new static();
-            $entry->entry = $tuple;
-            array_unshift($entries, $entry);
+            $entity = new static();
+            $entity->entry = $tuple;
+            array_unshift($entities, $entity);
         }
 
-        return $entries;
+        return $entities;
     }
 
     public function set($array){
