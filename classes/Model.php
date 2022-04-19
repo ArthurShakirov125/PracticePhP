@@ -22,6 +22,10 @@ class Model{
         return $this->entry;
     }
 
+    public function set_entry($value){
+        $this->entry = $value;
+    }
+
     public function __construct($id = "")
     {
         $this->db = DB::getInstance();
@@ -63,7 +67,7 @@ class Model{
     public function find_by_id($id){
         $stmt = $this->db->select($this->table_name, "{$this->primary_key} = {$id}", 1);
 
-        $this->entry = $stmt->fetch(PDO::FETCH_ASSOC);
+        $this->set_entry($stmt->fetch(PDO::FETCH_ASSOC));
         if($this->entry = []){
             $this->loaded = false;
             $this->entry["id"] = $this->id;
@@ -76,7 +80,7 @@ class Model{
         
         $entity = new static();
         if($tuple = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $entity->entry = $tuple;
+            $entity->set_entry($tuple);
         }
         return $entity;
     }
@@ -87,7 +91,7 @@ class Model{
 
         while($tuple = $stmt->fetch(PDO::FETCH_ASSOC)){
             $entity = new static();
-            $entity->entry = $tuple;
+            $entity->set_entry($tuple);
             array_unshift($entities, $entity);
         }
 
