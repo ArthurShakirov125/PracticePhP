@@ -6,7 +6,6 @@ class Product extends Model{
             "name" => "p_name",
             "type" => "varchar",
             "null" => false,
-            "primary_key" => false
         ],
         "id" => [
             "name" => "id",
@@ -18,7 +17,6 @@ class Product extends Model{
             "name" => "price",
             "type" => "int",
             "null" => false,
-            "primary_key" => false
         ]
     ];
 }

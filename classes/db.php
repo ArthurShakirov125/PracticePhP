@@ -183,7 +183,7 @@ class DB{
                 $can_be_null = self::TYPE_NOT_NULL;
             }
 
-            if($tuple["primary_key"]){
+            if(array_key_exists("primary_key", $tuple)){
                 $primary_key = self::TYPE_PRIMARY_KEY." ".self::TYPE_AUTO_INCREMENT;
             }
             else{
